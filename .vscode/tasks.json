@@ -1,0 +1,83 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build debug",
+      "type": "shell",
+      "command": "g++",
+      "args": [
+        "-O0",
+        "-I${workspaceFolder}/headers",
+        "-fdiagnostics-color=always",
+        "-fno-omit-frame-pointer",
+        "-fno-inline",
+        "-std=c++17",
+        "-g3",
+        "-D LOCAL_ENV",
+        "-o",
+        "\"${workspaceFolder}/bin/debug/${fileBasenameNoExtension}\"",
+        "\"${fileBasename}\""
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "presentation": {
+        "reveal": "silent",
+        "revealProblems": "onProblem"
+      },
+      "group": {
+        "kind": "build"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "build release",
+      "command": "g++",
+      "args": [
+        "-O3",
+        "-ffunction-sections",
+        "-fdata-sections",
+        "-DNDEBUG",
+        "-s",
+        "-Wl,--gc-sections",
+        "-std=c++17",
+        "-o",
+        "\"${workspaceFolder}/bin/release/${fileBasenameNoExtension}\"",
+        "\"${fileBasename}\""
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "group": {
+        "kind": "build"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "Run debug build",
+      "options": {
+        "cwd": "${workspaceFolder}/resources"
+      },
+      "command": "alacritty",
+      "args": [
+        "--working-directory",
+        "$PWD",
+        "-e",
+        "bash",
+        "-c",
+        "\"'${workspaceFolder}/bin/debug/${fileBasenameNoExtension}';read -n 1 -s -r -p '\nPress any key to exit...'\""
+      ],
+
+      "dependsOn": ["build debug"],
+      "presentation": {
+        "reveal": "silent",
+        "revealProblems": "onProblem"
+      },
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    }
+  ]
+}
