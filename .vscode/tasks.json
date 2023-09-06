@@ -4,14 +4,14 @@
     {
       "label": "build debug",
       "type": "shell",
-      "command": "g++",
+      "command": "gcc",
       "args": [
         "-O0",
         "-I${workspaceFolder}/headers",
         "-fdiagnostics-color=always",
         "-fno-omit-frame-pointer",
         "-fno-inline",
-        "-std=c++17",
+        "-std=c17",
         "-g3",
         "-D LOCAL_ENV",
         "-o",
@@ -32,7 +32,7 @@
     {
       "type": "shell",
       "label": "build release",
-      "command": "g++",
+      "command": "gcc",
       "args": [
         "-O3",
         "-ffunction-sections",
@@ -40,7 +40,7 @@
         "-DNDEBUG",
         "-s",
         "-Wl,--gc-sections",
-        "-std=c++17",
+        "-std=c17",
         "-o",
         "\"${workspaceFolder}/bin/release/${fileBasenameNoExtension}\"",
         "\"${fileBasename}\""
